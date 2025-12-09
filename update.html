@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Updates - PROAXIS ENTERPRISES</title>
+
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net;
+        style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline';
+        font-src 'self' https://cdnjs.cloudflare.com data:;
+        img-src 'self' data: https:;
+        connect-src 'self' https://*.supabase.co;
+    ">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1A438A;
+            --secondary: #0D2447;
+            --accent: #3B82F6;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, #EBF5FB, #D6EAF8);
+            z-index: -1;
+        }
+
+        /* Navigation - Same as homepage */
+        nav {
+            background-color: rgba(255, 255, 255);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo-text {
+            color: var(--primary);
+            font-size: 4.0;
+            font-weight: 900;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 25px;
+        }
+
+        .nav-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--secondary);
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        /* Main Content */
+        .updates-section {
+            padding: 120px 20px 80px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--dark);
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Error State */
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .error-message i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        /* Updates Grid */
+        .updates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .update-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .update-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+        }
+
+        .update-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .update-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .update-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+
+        .update-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .update-meta {
+            flex: 1;
+        }
+
+        .update-category {
+            display: inline-block;
+            background-color: rgba(26, 67, 138, 0.1);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .update-date {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .update-date i {
+            margin-right: 5px;
+        }
+
+        .update-title {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .update-content {
+            color: var(--dark);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .update-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .read-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: var(--accent);
+        }
+
+        .read-more i {
+            margin-left: 5px;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .filter-group select {
+            padding: 8px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            background-color: white;
+            color: var(--dark);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .filter-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Footer - Same as homepage */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 60px 20px 30px;
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .footer-column {
+            flex: 1 1 250px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--accent);
+        }
+
+        .footer-column i {
+            margin-right: 8px;
+        }
+
+        .footer-bottom {
+            margin-top: 50px;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-bottom p {
+            font-size: 0.9rem;
+            color: #e0e0e0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                right: 0;
+                height: 0;
+                top: 70px;
+                background-color: white;
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                overflow: hidden;
+                transition: height 0.5s ease;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                height: 300px;
+                padding: 20px 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hamburger.active div:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .hamburger.active div:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active div:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .updates-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .filter-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-group select {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="img/Proaxis.png" alt="Proaxis Logo">
+                <span class="logo-text">PROAXIS ENTERPRISES</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="update.html" class="active">Updates</a></li>
+            </ul>
+            <div class="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="updates-section">
+        <div class="container">
+            <div class="page-header">
+                <h1>Latest <span class="highlight">Updates</span></h1>
+                <p>Stay informed about our latest news, product launches, and important announcements</p>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-group">
+                    <label for="categoryFilter"><i class="fas fa-filter"></i> Filter by Category:</label>
+                    <select id="categoryFilter">
+                        <option value="all">All Categories</option>
+                        <option value="product">Product Launch</option>
+                        <option value="news">Company News</option>
+                        <option value="announcement">Announcement</option>
+                        <option value="health">Health Tips</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="sortOrder"><i class="fas fa-sort"></i> Sort by:</label>
+                    <select id="sortOrder">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="updatesContainer">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Loading updates...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>PROAXIS ENTERPRISES</h3>
+                <p>Your trusted health partner dedicated to providing high-quality pharmaceutical products and services since 2017.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Dwarkesh Plaza, Near Car Shed, Virar West</li>
+                    <li><i class="fas fa-phone"></i> 8600232613</li>
+                    <li><i class="fas fa-envelope"></i> pronovalifesciences@gmail.com</li>
+                    <li><i class="fas fa-clock"></i> Open 9 AM - 9 PM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Proaxis Enterprises. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Particles.js Configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#1A438A' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5 },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: '#1A438A', opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 2, direction: 'none', out_mode: 'out' }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: true, mode: 'push' } },
+                modes: { grab: { distance: 140 }, push: { particles_nb: 4 } }
+            }
+        });
+
+        // Mobile Navigation Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Supabase Configuration
+        const SUPABASE_URL = 'https://jtctwvizpfyxhtbxgyvr.supabase.co'; // Replace with your Supabase URL
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp0Y3R3dml6cGZ5eGh0YnhneXZyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MjA4MDg1MDg4M30.7r8Nez9LJIWyG7XhORwV39A7ynePQLCMiwnLwADzAvE'; // Replace with your Supabase anon key
+        
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let allUpdates = [];
+
+        // Category Icons
+        const categoryIcons = {
+            'product': 'fa-box-open',
+            'news': 'fa-newspaper',
+            'announcement': 'fa-bullhorn',
+            'health': 'fa-heartbeat',
+            'default': 'fa-info-circle'
+        };
+
+        // Format Date
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
+
+        // Create Update Card
+        function createUpdateCard(update) {
+            const iconClass = categoryIcons[update.category] || categoryIcons.default;
+            
+            return `
+                <div class="update-card" data-category="${update.category}">
+                    <div class="update-header">
+                        <div class="update-icon">
+                            <i class="fas ${iconClass}"></i>
+                        </div>
+                        <div class="update-meta">
+                            <span class="update-category">${update.category}</span>
+                            <div class="update-date">
+                                <i class="far fa-calendar-alt"></i> ${formatDate(update.created_at)}
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="update-title">${update.title}</h3>
+                    <p class="update-content">${update.content}</p>
+                    <div class="update-footer">
+                        <span style="color: #6c757d; font-size: 0.9rem;">
+                            <i class="fas fa-user"></i> ${update.author || 'Admin'}
+                        </span>
+                        ${update.link ? `<a href="${update.link}" class="read-more" target="_blank">Read More <i class="fas fa-arrow-right"></i></a>` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Display Updates
+        function displayUpdates(updates) {
+            const container = document.getElementById('updatesContainer');
+            
+            if (updates.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <h3>No Updates Available</h3>
+                        <p>Check back later for new updates and announcements.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="updates-grid">
+                    ${updates.map(update => createUpdateCard(update)).join('')}
+                </div>
+            `;
+        }
+
+        // Filter and Sort Updates
+        function filterAndSortUpdates() {
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const sortOrder = document.getElementById('sortOrder').value;
+
+            let filtered = [...allUpdates];
+
+            // Filter by category
+            if (categoryFilter !== 'all') {
+                filtered = filtered.filter(update => update.category === categoryFilter);
+            }
+
+            // Sort
+            filtered.sort((a, b) => {
+                const dateA = new Date(a.created_at);
+                const dateB = new Date(b.created_at);
+                return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
+            });
+
+            displayUpdates(filtered);
+        }
+
+        // Fetch Updates from Supabase
+        async function fetchUpdates() {
+            const container = document.getElementById('updatesContainer');
+            
+            try {
+                container.innerHTML = `
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Loading updates...</p>
+                    </div>
+                `;
+
+                const { data, error } = await supabase
+                    .from('updates')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                allUpdates = data || [];
+                displayUpdates(allUpdates);
+
+            } catch (error) {
+                console.error('Error fetching updates:', error);
+                container.innerHTML = `
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Error Loading Updates</h3>
+                        <p>${error.message}</p>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Please check your Supabase configuration and try again.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Event Listeners
+        document.getElementById('categoryFilter').addEventListener('change', filterAndSortUpdates);
+        document.getElementById('sortOrder').addEventListener('change', filterAndSortUpdates);
+
+        // Initialize
+        fetchUpdates();
+    </script>
+</body>
+</html>

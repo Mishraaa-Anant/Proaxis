@@ -1,0 +1,1748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - PROAXIS ENTERPRISES</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1A438A;
+            --secondary: #0D2447;
+            --accent: #3B82F6;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Particles Container */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, #EBF2FF, #DBEAFE);
+            z-index: -1;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: rgb(255, 255, 255);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(13, 36, 71, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo-text {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 25px;
+        }
+
+        .nav-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--secondary);
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 120px 20px 60px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+            opacity: 0.95;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: var(--dark);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Category Filters */
+        .category-filters {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .category-btn {
+            padding: 8px 16px;
+            border-radius: 30px;
+            background-color: white;
+            color: var(--secondary);
+            border: 2px solid var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 67, 138, 0.3);
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(26, 67, 138, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid rgba(26, 67, 138, 0.1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(26, 67, 138, 0.15);
+        }
+
+        .product-image {
+            height: 220px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f0f7ff 0%, #e3f2fd 100%);
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 10;
+        }
+
+        .tag-new {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+        }
+
+        .tag-bestseller {
+            background: linear-gradient(135deg, var(--accent) 0%, #60a5fa 100%);
+            color: white;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            font-size: 1.3rem;
+            color: var(--secondary);
+            margin-bottom: 5px;
+        }
+
+        .product-category {
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .old-price {
+            font-size: 0.9rem;
+            color: #999;
+            text-decoration: line-through;
+            margin-right: 10px;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--accent);
+        }
+
+        .rating span {
+            margin-left: 5px;
+            color: var(--dark);
+        }
+
+        .product-short-desc {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--dark);
+            margin-bottom: 15px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-details {
+            background-color: var(--light);
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+        }
+
+        .btn-details:hover {
+            background-color: var(--secondary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-buy {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(26, 67, 138, 0.3);
+        }
+
+        .btn-buy:hover {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(26, 67, 138, 0.4);
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 200;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(13, 36, 71, 0.7);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 0;
+            width: 90%;
+            max-width: 900px;
+            border-radius: 10px;
+            box-shadow: 0 5px 30px rgba(26, 67, 138, 0.2);
+            transform: translateY(-50px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(13, 36, 71, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background-color: var(--secondary);
+        }
+
+        .product-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-details-top {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-details-image {
+            flex: 1;
+            height: 300px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            position: relative;
+        }
+
+        .product-details-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-details-info {
+            padding: 30px;
+            flex: 1;
+        }
+
+        .product-details-title {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .product-details-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .product-details-category {
+            font-size: 1rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-right: 15px;
+        }
+
+        .product-details-rating {
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            color: var(--accent);
+        }
+
+        .product-details-rating span {
+            margin-left: 5px;
+            color: var(--dark);
+        }
+
+        .product-details-price {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 20px;
+        }
+
+        .product-details-current-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-right: 15px;
+        }
+
+        .product-details-old-price {
+            font-size: 1.2rem;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .product-details-discount {
+            padding: 3px 10px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-left: 15px;
+        }
+
+        .product-details-description {
+            color: var(--dark);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .product-details-features {
+            margin-bottom: 30px;
+        }
+
+        .product-details-features h4 {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .features-list {
+            list-style: none;
+        }
+
+        .features-list li {
+            padding-left: 25px;
+            position: relative;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .features-list li:before {
+            content: "\f058";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .product-details-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e3f2fd;
+            border: 2px solid var(--primary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: var(--primary);
+        }
+
+        .quantity-btn:hover {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .quantity-input {
+            width: 50px;
+            height: 40px;
+            text-align: center;
+            border: 2px solid var(--primary);
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0 10px;
+        }
+
+        .btn-large {
+            padding: 12px 30px;
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--secondary) 0%, #1a2332 100%);
+            color: white;
+            padding: 60px 20px 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .footer-column {
+            flex: 1 1 250px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: #d4e3f7;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            margin-top: 50px;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .footer-bottom p {
+            font-size: 0.9rem;
+            color: #d4e3f7;
+        }
+
+        /* Add animated pulse effect to buttons */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(26, 67, 138, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(26, 67, 138, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(26, 67, 138, 0);
+            }
+        }
+
+        .btn-buy:hover {
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Add floating animation to product cards */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .product-card:hover {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Add a nice hover effect for the navbar */
+        .nav-links a:hover {
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+            transform: scale(1.05);
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(26, 67, 138, 0.4);
+            z-index: 99;
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(26, 67, 138, 0.5);
+        }
+
+        /* Notification popup */
+        .notification {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background-color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(26, 67, 138, 0.2);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.5s ease;
+            border-left: 4px solid var(--accent);
+        }
+
+        .notification.active {
+            transform: translateX(0);
+        }
+
+        .notification-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            color: var(--primary);
+        }
+
+        .notification-text {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+
+        .notification-close {
+            font-size: 1rem;
+            color: #999;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .product-details-top {
+                flex-direction: column;
+            }
+            
+            .product-details-image,
+            .product-details-info {
+                width: 100%;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                right: 0;
+                height: 0;
+                top: 70px;
+                background-color: white;
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                overflow: hidden;
+                transition: height 0.5s ease;
+                box-shadow: 0 5px 10px rgba(13, 36, 71, 0.15);
+            }
+
+            .nav-links.active {
+                height: 300px;
+                padding: 20px 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hamburger.active div:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .hamburger.active div:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active div:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            .page-header h1 {
+                font-size: 2.3rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .product-details-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .quantity-selector {
+                margin-right: 0;
+                margin-bottom: 15px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 10px 15px;
+            }
+
+            .logo img {
+                height: 30px;
+            }
+
+            .logo-text {
+                font-size: 1.2rem;
+            }
+
+            .page-header {
+                padding: 100px 20px 40px;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .page-header p {
+                font-size: 1rem;
+            }
+
+            .section {
+                margin-bottom: 50px;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-filters {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .category-btn {
+                width: 100%;
+                max-width: 250px;
+                text-align: center;
+            }
+
+            .product-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .product-details-title {
+                font-size: 1.6rem;
+            }
+
+            .product-details-current-price {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles.js Container -->
+    <div id="particles-js"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="img/proaxis.png" alt="MediCare Logo">
+                <span class="logo-text">PROAXIS ENTERPRISES</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="update.html">Updates</a></li>
+            </ul>
+            <div class="hamburger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1>Our <span class="highlight">Products</span></h1>
+        <p>High-quality pharmaceutical products for all your health needs</p>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Products Section -->
+        <section class="section">
+            <div class="section-title">
+                <h2>Health <span class="highlight">Products</span></h2>
+                <p>Browse our wide range of pharmaceutical and wellness products</p>
+            </div>
+
+            <!-- Category Filters -->
+            <div class="category-filters">
+                <button class="category-btn active" data-category="all">All Products</button>
+                <button class="category-btn" data-category="medicines">Medicines</button>
+                <button class="category-btn" data-category="vitamins">Vitamins & Supplements</button>
+                
+                
+            </div>
+
+            <!-- Product Grid -->
+            <div class="product-grid">
+                <!-- Product 1 -->
+                <div class="product-card" data-product-id="1" data-category="vitamins">
+                    <div class="product-image">
+                        <img src="img/curivit1.jpg" alt="CURIVIT">
+                    </div>
+                    <div class="product-tag tag-bestseller">Bestseller</div>
+                    <div class="product-info">
+                        <h3>CURIVIT</h3>
+                        <div class="product-category">Vitamins & Supplements</div>
+                        <div class="product-price">
+                            <div>
+                                <span class="old-price">₹169.99</span>
+                                <span class="price">₹ 169.99</span>
+                            </div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>(20k+)</span>
+                            </div>
+                        </div>
+                        <div class="product-short-desc">
+                            Nano Curcumin,Piperine & MultiVitamin Tablets
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card" data-product-id="2" data-category="medicines">
+                    <div class="product-image">
+                        <img src="img/cocavit.jpg" alt="COCAVIT TABLETS">
+                    </div>
+                    <div class="product-info">
+                        <h3>COCAVIT TABLETS</h3>
+                        <div class="product-category">Medicines</div>
+                        <div class="product-price">
+                            <div>
+                                <span class="price">₹ 159</span>
+                            </div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>(85k+)</span>
+                            </div>
+                        </div>
+                        <div class="product-short-desc">
+                            Coral Calcium, Vitamin-B12, L-Methyl Folate, Vitamin-B6 & Vitamin-D3 Tablets
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card" data-product-id="3" data-category="medicines">
+                    <div class="product-image">
+                        <img src="img/dorpandsr.jpg" alt="Dorpan - DSR">
+                    </div>
+                    <div class="product-tag tag-new">Bestseller</div>
+                    <div class="product-info">
+                        <h3>Dorpan - DSR</h3>
+                        <div class="product-category">Medicines</div>
+                        <div class="product-price">
+                            <div>
+                                <span class="old-price">₹79</span>
+                                <span class="price">₹ 79</span>
+                            </div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>(42k+)</span>
+                            </div>
+                        </div>
+                        <div class="product-short-desc">
+                           Pantaprazole Sodium Gastro Resistant & Domperidone (SR) capsules IP
+                        </div>
+                       
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card" data-product-id="4" data-category="vitamins">
+                    <div class="product-image">
+                        <img src="img/feroate.jpg" alt="FEORATE - XT Tablets">
+                    </div>
+                    <div class="product-info">
+                        <h3>FEORATE - XT Tablets</h3>
+                        <div class="product-category">Vitamins</div>
+                        <div class="product-price">
+                            <div>
+                                <span class="price">₹119</span>
+                            </div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>(8k+)</span>
+                            </div>
+                        </div>
+                        <div class="product-short-desc">
+                            Ferrous Fumarate, L MethylFolate, Zinc,DHA & Biotin Tablets
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="product-card" data-product-id="5" data-category="vitamins">
+                    <div class="product-image">
+                        <img src="img/axinova.jpg" alt="AXINOVA TABLET">
+                    </div>
+                    <div class="product-info">
+                        <h3>AXINOVA TABLET</h3>
+                        <div class="product-category">Vitamins</div>
+                        <div class="product-price">
+                            <div>
+                                <span class="old-price">₹149</span>
+                                <span class="price">₹149</span>
+                            </div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>(5.6k+)</span>
+                            </div>
+                        </div>
+                        <div class="product-short-desc">
+                            Lycopene, Cyanocobalamin, MultiVitamin, MultiMineral & Amino Acid Tablets
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <!-- Product 6 -->
+                <div class="product-card" data-product-id="6" data-category="vitamins">
+                    <div class="product-image">
+                        <img src="img/axinova_syrup.jpg" alt="AXINOVA SYRUP">
+                    </div>
+                    <div class="product-tag tag-bestseller">Bestseller</div>
+                    <div class="product-info">
+                        <h3>AXINOVA SYRUP</h3>
+                        <div class="product-category">Vitamins & Supplements</div>
+                        <div class="product-price">
+                            <div>
+                                <span class="price">₹ 107.10</span>
+                            </div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>(11.2k+)</span>
+                            </div>
+                        </div>
+                        <div class="product-short-desc">
+                          Iron, Amino Acids, MultiVitamin & MultiMineral Syrup
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <!-- Product 7 -->
+                <div class="product-card" data-product-id="7" data-category="medicines">
+                    <div class="product-image">
+                        <img src="img/tendonova.jpg" alt="TENDONOVA TABLETS">
+                    </div>
+                    <div class="product-info">
+                        <h3>TENDONOVA TABLETS</h3>
+                        <div class="product-category">Medicines</div>
+                        <div class="product-price">
+                            <div>
+                                <span class="price">₹ 199</span>
+                            </div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>(9.4k+)</span>
+                            </div>
+                        </div>
+                        <div class="product-short-desc">
+                        Rose Hip Extract, Collagen Peptide Type 1, Sodium Hyaluronate, Chondroitin Sulfate, Omega-3 Fatty Acids & Vitamin C Tablets
+                            
+
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <!-- Product 8 -->
+                <div class="product-card" data-product-id="8" data-category="medicines">
+                    <div class="product-image">
+                        <img src="img/curivit_forte.jpg" alt="CURIVIT FORTE">
+                    </div>
+                    <div class="product-info">
+                        <h3>CURIVIT FORTE TABLET</h3>
+                        <div class="product-category">Medicines</div>
+                        <div class="product-price">
+                            <div>
+                                <span class="price">₹ 299</span>
+                            </div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>(6.7k+)</span>
+                            </div>
+                        </div>
+                        <div class="product-short-desc">
+                            Curcumin Extract with Astaxanthin, Vitamin C, Boswellia serrata Extract & Palmitoylethanolamide Tablets
+                        </div>
+                        
+                    </div>
+                </div>
+
+                 <div class="product-card" data-product-id="8" data-category="medicines">
+                    <div class="product-image">
+                        <img src="img/orthozeal.jpg" alt="ORTHOZEAL OIL">
+                    </div>
+                    <div class="product-info">
+                        <h3>ORTHOZEAL OIL</h3>
+                        <div class="product-category">Medicines</div>
+                        <div class="product-price">
+                            <div>
+                                <span class="price">₹ 109</span>
+                            </div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>(6.7k+)</span>
+                            </div>
+                        </div>
+                        <div class="product-short-desc">
+                            orthozeal oil for pain relief, Instantly relieves muscle and joint pain with its powerful blend of natural ingredients.
+                        </div>
+                        
+                    </div>
+                </div>
+                </div>
+                </section>
+                
+                <!-- Product Detail Modal -->
+               
+                
+               
+                
+                <!-- Back to Top Button -->
+                <div class="back-to-top">
+                    <i class="fas fa-arrow-up"></i>
+                </div>
+                
+                <!-- Footer -->
+                <footer>
+                    <div class="footer-container">
+                        <div class="footer-column">
+                            <h3>Proaxis Enterprises</h3>
+                            <ul>
+                                <li><a href="about.html">About Us</a></li>
+                                <li><a href="update.html">Careers</a></li>
+                                <li><a href="index.html">Our Stores</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-column">
+                            <h3>Customer Service</h3>
+                            <ul>
+                                <li><a href="privacy.html">Help Center</a></li>
+                                <li><a href="privacy.html">Shipping Information</a></li>
+                                <li><a href="privacy.html">Returns & Exchanges</a></li>
+                                <li><a href="privacy.html">Privacy Policy</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-column">
+                            <h3>Quick Links</h3>
+                            <ul>
+                                <li><a href="prescriptions.html">Prescriptions</a></li>
+                                <li><a href="health-tips.html">Health Tips</a></li>
+                                <li><a href="offers.html">Special Offers</a></li>
+                                <li><a href="membership.html">Membership</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-column">
+                            <h3>Connect With Us</h3>
+                            <ul>
+                                <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                                <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                                <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                                <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>&copy; 2025 Proaxis Enterprises. All Rights Reserved.</p>
+                    </div>
+                </footer>
+                
+                <script>
+                    // Initialize particles.js
+                    particlesJS('particles-js', {
+                        "particles": {
+                            "number": {
+                                "value": 80,
+                                "density": {
+                                    "enable": true,
+                                    "value_area": 800
+                                }
+                            },
+                            "color": {
+                                "value": "#2A9D8F"
+                            },
+                            "shape": {
+                                "type": "circle",
+                                "stroke": {
+                                    "width": 0,
+                                    "color": "#000000"
+                                },
+                                "polygon": {
+                                    "nb_sides": 5
+                                }
+                            },
+                            "opacity": {
+                                "value": 0.5,
+                                "random": false,
+                                "anim": {
+                                    "enable": false,
+                                    "speed": 1,
+                                    "opacity_min": 0.1,
+                                    "sync": false
+                                }
+                            },
+                            "size": {
+                                "value": 3,
+                                "random": true,
+                                "anim": {
+                                    "enable": false,
+                                    "speed": 40,
+                                    "size_min": 0.1,
+                                    "sync": false
+                                }
+                            },
+                            "line_linked": {
+                                "enable": true,
+                                "distance": 150,
+                                "color": "#2A9D8F",
+                                "opacity": 0.4,
+                                "width": 1
+                            },
+                            "move": {
+                                "enable": true,
+                                "speed": 2,
+                                "direction": "none",
+                                "random": false,
+                                "straight": false,
+                                "out_mode": "out",
+                                "bounce": false,
+                                "attract": {
+                                    "enable": false,
+                                    "rotateX": 600,
+                                    "rotateY": 1200
+                                }
+                            }
+                        },
+                        "interactivity": {
+                            "detect_on": "canvas",
+                            "events": {
+                                "onhover": {
+                                    "enable": true,
+                                    "mode": "grab"
+                                },
+                                "onclick": {
+                                    "enable": true,
+                                    "mode": "push"
+                                },
+                                "resize": true
+                            },
+                            "modes": {
+                                "grab": {
+                                    "distance": 140,
+                                    "line_linked": {
+                                        "opacity": 1
+                                    }
+                                },
+                                "bubble": {
+                                    "distance": 400,
+                                    "size": 40,
+                                    "duration": 2,
+                                    "opacity": 8,
+                                    "speed": 3
+                                },
+                                "repulse": {
+                                    "distance": 200,
+                                    "duration": 0.4
+                                },
+                                "push": {
+                                    "particles_nb": 4
+                                },
+                                "remove": {
+                                    "particles_nb": 2
+                                }
+                            }
+                        },
+                        "retina_detect": true
+                    });
+                
+                    // Mobile Navigation Toggle
+                    const hamburger = document.querySelector('.hamburger');
+                    const navLinks = document.querySelector('.nav-links');
+                
+                    hamburger.addEventListener('click', () => {
+                        hamburger.classList.toggle('active');
+                        navLinks.classList.toggle('active');
+                    });
+                
+                    // Product Category Filter
+                    const categoryButtons = document.querySelectorAll('.category-btn');
+                    const productCards = document.querySelectorAll('.product-card');
+                
+                    categoryButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            // Remove active class from all buttons
+                            categoryButtons.forEach(btn => btn.classList.remove('active'));
+                            
+                            // Add active class to clicked button
+                            button.classList.add('active');
+                            
+                            const category = button.getAttribute('data-category');
+                            
+                            // Filter products
+                            productCards.forEach(card => {
+                                if(category === 'all' || card.getAttribute('data-category') === category) {
+                                    card.style.display = 'block';
+                                } else {
+                                    card.style.display = 'none';
+                                }
+                            });
+                        });
+                    });
+                
+                    // Product Detail Modal
+                    const modal = document.getElementById('productModal');
+                    const modalClose = document.querySelector('.modal-close');
+                    const viewDetailsButtons = document.querySelectorAll('.view-details');
+                
+                    // Sample product details data (in a real scenario, this would come from a database)
+                    const productDetails = {
+                        1: {
+                            title: "MultiVitamin Plus",
+                            category: "Vitamins & Supplements",
+                            image: "/api/placeholder/900/400",
+                            price: "$24.99",
+                            oldPrice: "$29.99",
+                            discount: "-17%",
+                            rating: "(120)",
+                            description: "Our MultiVitamin Plus is a comprehensive formula containing essential vitamins, minerals, and antioxidants to support overall health and wellbeing. This premium blend is designed to fill nutritional gaps in your diet and promote energy, immunity, and vitality.",
+                            features: [
+                                "Contains 25 essential vitamins and minerals",
+                                "Supports immune system function",
+                                "Promotes energy production and reduces fatigue",
+                                "Easy-to-swallow capsules",
+                                "One-month supply (60 capsules)"
+                            ]
+                        },
+                        2: {
+                            title: "Pain Relief Tablets",
+                            category: "Medicines",
+                            image: "/api/placeholder/900/400",
+                            price: "$12.99",
+                            oldPrice: "",
+                            discount: "",
+                            rating: "(85)",
+                            description: "Our Pain Relief Tablets provide fast and effective relief from headaches, muscle pain, joint pain, and minor arthritis discomfort. The non-drowsy formula allows you to continue with your daily activities while managing pain effectively.",
+                            features: [
+                                "Fast-acting formula works within 15-30 minutes",
+                                "Up to 8 hours of continuous pain relief",
+                                "Non-drowsy formula",
+                                "Gentle on the stomach",
+                                "Box contains 24 tablets"
+                            ]
+                        },
+                        3: {
+                            title: "Advanced Skin Cream",
+                            category: "Personal Care",
+                            image: "/api/placeholder/900/400",
+                            price: "$29.99",
+                            oldPrice: "$35.99",
+                            discount: "-17%",
+                            rating: "(42)",
+                            description: "Our Advanced Skin Cream is a professional-grade moisturizer that delivers intense hydration while fighting signs of aging. Formulated with hyaluronic acid, vitamin E, and peptides, this cream improves skin elasticity, reduces fine lines, and provides lasting moisture.",
+                            features: [
+                                "Deeply hydrates for up to 24 hours",
+                                "Improves skin elasticity and firmness",
+                                "Reduces the appearance of fine lines and wrinkles",
+                                "Non-greasy formula absorbs quickly",
+                                "Suitable for all skin types"
+                            ]
+                        },
+                        4: {
+                            title: "Baby Care Kit",
+                            category: "Baby Care",
+                            image: "/api/placeholder/900/400",
+                            price: "$39.99",
+                            oldPrice: "",
+                            discount: "",
+                            rating: "(78)",
+                            description: "Our comprehensive Baby Care Kit includes everything you need for your little one's daily care routine. This gentle, hypoallergenic collection is specially formulated for sensitive baby skin and includes essential items for bathing, moisturizing, and protection.",
+                            features: [
+                                "Gentle baby shampoo (250ml)",
+                                "Moisturizing baby lotion (200ml)",
+                                "Diaper rash cream (100g)",
+                                "Baby powder (150g)",
+                                "Baby wipes (80 count)",
+                                "Soft bath sponge"
+                            ]
+                        },
+                        5: {
+                            title: "Digital Thermometer",
+                            category: "Medical Devices",
+                            image: "/api/placeholder/900/400",
+                            price: "$19.99",
+                            oldPrice: "$24.99",
+                            discount: "-20%",
+                            rating: "(56)",
+                            description: "Our Digital Thermometer provides fast, accurate temperature readings in just 10 seconds. With its clear display, memory function, and fever alert system, monitoring your family's health has never been easier.",
+                            features: [
+                                "Fast 10-second reading time",
+                                "Accurate to ±0.2°F (±0.1°C)",
+                                "Memory stores last 10 readings",
+                                "Fever alarm with color-coded display",
+                                "Waterproof tip for easy cleaning",
+                                "Auto shut-off to preserve battery life"
+                            ]
+                        },
+                        6: {
+                            title: "Omega-3 Fish Oil",
+                            category: "Vitamins & Supplements",
+                            image: "/api/placeholder/900/400",
+                            price: "$22.99",
+                            oldPrice: "",
+                            discount: "",
+                            rating: "(112)",
+                            description: "Our high-potency Omega-3 Fish Oil provides essential fatty acids that support heart health, brain function, and joint mobility. Each softgel contains purified fish oil that has been molecularly distilled to remove mercury and other contaminants.",
+                            features: [
+                                "1,000mg of fish oil per softgel",
+                                "High concentration of EPA and DHA",
+                                "Supports cardiovascular health",
+                                "Promotes brain function and cognitive health",
+                                "Helps maintain healthy joints",
+                                "Enteric-coated capsules prevent fishy aftertaste"
+                            ]
+                        },
+                        7: {
+                            title: "Cold & Flu Relief",
+                            category: "Medicines",
+                            image: "/api/placeholder/900/400",
+                            price: "$15.99",
+                            oldPrice: "",
+                            discount: "",
+                            rating: "(94)",
+                            description: "Our Cold & Flu Relief provides complete symptom relief for coughs, congestion, sore throat, headache, and fever. This powerful formula helps you rest while supporting your immune system to fight the infection.",
+                            features: [
+                                "Relieves multiple cold and flu symptoms",
+                                "Reduces fever and headache",
+                                "Clears nasal congestion",
+                                "Soothes sore throat",
+                                "Contains vitamin C for immune support",
+                                "Day and night formula options available"
+                            ]
+                        },
+                        8: {
+                            title: "Sunscreen SPF 50+",
+                            category: "Personal Care",
+                            image: "/api/placeholder/900/400",
+                            price: "$18.99",
+                            oldPrice: "",
+                            discount: "",
+                            rating: "(67)",
+                            description: "Our broad-spectrum Sunscreen SPF 50+ provides superior protection against harmful UVA and UVB rays that can cause sunburn, premature aging, and skin damage. The water-resistant formula is ideal for outdoor activities and remains effective for up to 80 minutes in water.",
+                            features: [
+                                "SPF 50+ broad-spectrum protection",
+                                "Water-resistant for up to 80 minutes",
+                                "Non-greasy, lightweight formula",
+                                "Enriched with vitamin E and aloe vera",
+                                "Free from parabens and oxybenzone",
+                                "Suitable for sensitive skin"
+                            ]
+                        }
+                    };
+                
+                    // Open modal and populate with product details
+                    viewDetailsButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            const productId = button.getAttribute('data-product-id');
+                            const product = productDetails[productId];
+                            
+                            // Set modal content
+                            document.getElementById('modal-product-title').textContent = product.title;
+                            document.getElementById('modal-product-category').textContent = product.category;
+                            document.getElementById('modal-product-image').src = product.image;
+                            document.getElementById('modal-product-image').alt = product.title;
+                            document.getElementById('modal-product-price').textContent = product.price;
+                            
+                            // Set old price and discount if available
+                            if(product.oldPrice) {
+                                document.getElementById('modal-product-old-price').textContent = product.oldPrice;
+                                document.getElementById('modal-product-old-price').style.display = 'inline';
+                                document.getElementById('modal-product-discount').textContent = product.discount;
+                                document.getElementById('modal-product-discount').style.display = 'inline';
+                            } else {
+                                document.getElementById('modal-product-old-price').style.display = 'none';
+                                document.getElementById('modal-product-discount').style.display = 'none';
+                            }
+                            
+                            document.getElementById('modal-product-rating').textContent = product.rating;
+                            document.getElementById('modal-product-description').textContent = product.description;
+                            
+                            // Set features
+                            const featuresList = document.getElementById('modal-product-features');
+                            featuresList.innerHTML = '';
+                            product.features.forEach(feature => {
+                                const li = document.createElement('li');
+                                li.textContent = feature;
+                                featuresList.appendChild(li);
+                            });
+                            
+                            // Set buy now button
+                            document.getElementById('modal-buy-now').setAttribute('data-product', product.title);
+                            
+                            // Show modal
+                            modal.classList.add('active');
+                            setTimeout(() => {
+                                modal.querySelector('.modal-content').style.transform = 'translateY(0)';
+                                modal.querySelector('.modal-content').style.opacity = '1';
+                            }, 10);
+                        });
+                    });
+                
+                    // Close modal
+                    modalClose.addEventListener('click', () => {
+                        modal.querySelector('.modal-content').style.transform = 'translateY(-50px)';
+                        modal.querySelector('.modal-content').style.opacity = '0';
+                        setTimeout(() => {
+                            modal.classList.remove('active');
+                        }, 300);
+                    });
+                
+                    // Close modal when clicking outside
+                    window.addEventListener('click', (e) => {
+                        if(e.target === modal) {
+                            modal.querySelector('.modal-content').style.transform = 'translateY(-50px)';
+                            modal.querySelector('.modal-content').style.opacity = '0';
+                            setTimeout(() => {
+                                modal.classList.remove('active');
+                            }, 300);
+                        }
+                    });
+                
+                    // Quantity selector
+                    const decreaseBtn = document.querySelector('.decrease');
+                    const increaseBtn = document.querySelector('.increase');
+                    const quantityInput = document.querySelector('.quantity-input');
+                
+                    decreaseBtn.addEventListener('click', () => {
+                        let value = parseInt(quantityInput.value);
+                        if(value > 1) {
+                            quantityInput.value = value - 1;
+                        }
+                    });
+                
+                    increaseBtn.addEventListener('click', () => {
+                        let value = parseInt(quantityInput.value);
+                        if(value < 10) {
+                            quantityInput.value = value + 1;
+                        }
+                    });
+                
+                    // Buy Now / Add to Cart functionality
+                    const buyButtons = document.querySelectorAll('.buy-now');
+                    const notification = document.getElementById('notification');
+                    const notificationText = document.querySelector('.notification-text');
+                    const notificationClose = document.querySelector('.notification-close');
+                
+                    buyButtons.forEach(button => {
+                        button.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            const productName = button.getAttribute('data-product');
+                            notificationText.textContent = `Added ${productName} to your cart!`;
+                            
+                            // Show notification
+                            notification.classList.add('active');
+                            
+                            // Hide notification after 3 seconds
+                            setTimeout(() => {
+                                notification.classList.remove('active');
+                            }, 3000);
+                        });
+                    });
+                
+                    // Close notification manually
+                    notificationClose.addEventListener('click', () => {
+                        notification.classList.remove('active');
+                    });
+                
+                    // Back to top button
+                    const backToTopButton = document.querySelector('.back-to-top');
+                
+                    window.addEventListener('scroll', () => {
+                        if(window.pageYOffset > 300) {
+                            backToTopButton.classList.add('active');
+                        } else {
+                            backToTopButton.classList.remove('active');
+                        }
+                    });
+                
+                    backToTopButton.addEventListener('click', () => {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    });
+                </script>
+                </body>
+                </html>
